@@ -1,0 +1,25 @@
+{
+  "name": "algorithms",
+  "version": "1.0.0",
+  "description": "This project is used to refresh my algo knowledge",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gopakumar001/Algorithms.git"
+  },
+  "author": "Gopakumar V",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gopakumar001/Algorithms/issues"
+  },
+  "homepage": "https://github.com/gopakumar001/Algorithms#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "webpack": "^3.11.0"
+  }
+}
