@@ -1,7 +1,6 @@
 /**
- * @Gopakumar V
- * 
- * Algorithm to sort content using Merge Sort. It uses divide and conquer approach to sort the content.
+ * @author Gopakumar V
+ * @file Algorithm to sort content using Merge Sort. It uses divide and conquer approach to sort the content.
  * 
  * ---------------------------------------------------
  * Steps involved are :-
