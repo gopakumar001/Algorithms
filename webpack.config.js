@@ -28,6 +28,10 @@ const config = {
         }),
         new HtmlWebpackPlugin({
             template : "index.html"
+        }),
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery"
         })
     ]
 };

@@ -1,7 +1,11 @@
-import sortingAlgo from "./SORTING/SortingAlgo";
-import Widgets from "./Widgets/Widgets";
 import './CSS/style.css';
-import {
+import Widgets from "./Widgets/Widgets";
+import BSTTestcase from "./DS/BSTTestCase";
+
+BSTTestcase(Widgets);
+
+// import sortingAlgo from "./SORTING/SortingAlgo";
+/* import {
     $,
     jQuery
 } from "jquery";
@@ -22,37 +26,29 @@ new Widgets.Tree({
         "children": [{
                 "name": "B",
                 "children": [{
-                        "name": "C",
-                        "children": [{
-                            "name": "C"
-                        },
-                        {
-                            "name": "D"
-                        }
-                    ]
-                    },
-                    {
+                    "name": "C",
+                    "children": [{
+                        "name": "C"
+                    }, {
                         "name": "D"
-                    }
-                ]
+                    }]
+                }, {
+                    "name": "D"
+                }]
             },
             {
                 "name": "E",
                 "children": [{
+                    "name": "C"
+                }, {
+                    "name": "D",
+                    "children": [{
                         "name": "C"
-                    },
-                    {
-                        "name": "D",
-                        "children": [{
-                            "name": "C"
-                        },
-                        {
-                            "name": "D"
-                        }
-                    ]
-                    }
-                ]
+                    }, {
+                        "name": "D"
+                    }]
+                }]
             }
         ]
     }
-});
+}); */

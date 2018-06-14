@@ -14,46 +14,66 @@ export default class TreeWidget {
             width: config.renderTo.clientWidth,
             nodeRadius: config.nodeRadius || 10,
             levelSpacing: config.levelSpacing || 30,
-            nodeSpacing: config.nodeSpacing || 100,
             data: config.data,
-            treeLevel: 2,
-            maxLeafNode: 4,
             margin: config.margin
         };
-        this.renderUI();
+
+        if (config.data)
+            this.renderUI();
     }
 
-    getTreeHeight() {
-        return this._config.treeLevel * this._config.levelSpacing;
+    updateUI(data, treeHeight) {
+        if (data) {
+            this._config.data = data;
+            this.renderUI();
+        }
     }
 
-    getTreeWidth() {
-        return this._config.maxLeafNode * this._config.nodeSpacing;
-    }
 
     renderUI() {
-        var width = this._config.width - this._config.margin.left - this._config.margin.right,
-            height = this._config.height - this._config.margin.top - this._config.margin.bottom,
-            svg = d3.select(this._config.renderTo).append("svg")
-            .attr("width", width)
-            .attr("height", height),
-            g = svg.append("g")
-            .attr("transform",
-                "translate(-" + (this._config.margin.left + this._config.nodeRadius) + "," + (this._config.margin.top + this._config.nodeRadius) + ")");
+        this._config.renderTo.innerHTML = "";
+        var elem = $(this._config.renderTo),
+            nodeSize = (this._config.nodeRadius * 2) + this._config.levelSpacing,
+            topOffset = (this._config.margin.top + (this._config.nodeRadius * 2)),
+            svg = d3.select(this._config.renderTo).append("svg");
+
 
         // declares a tree layout and assigns the size
         var treemap = d3.tree()
-            .size([this.getTreeWidth(), this.getTreeHeight()]);
-
+            .nodeSize([nodeSize, nodeSize]);
+        this._treemap = treemap;
         //  assigns the data to a hierarchy using parent-child relationships
-        var nodes = d3.hierarchy(this._config.data);
-
+        var hierarchy = d3.hierarchy(this._config.data);
+        this._hierarchy = hierarchy;
         // maps the node data to the tree layout
-        nodes = treemap(nodes);
+        var nodes = treemap(hierarchy);
+        this._nodes = nodes;
+
+
+        var minX = 0,
+            maxX = 0,
+            svgHeight = (nodeSize * (hierarchy.height + 1));
+
+        nodes.leaves().forEach(function (node) {
+            if (node.x < minX) {
+                minX = node.x;
+            }
+            if (node.x > maxX) {
+                maxX = node.x;
+            }
+        });
+
+        var svgWidth = (Math.abs(minX) + maxX) +  (2 * nodeSize),
+            leftOffset = (svgWidth / 2) +  this._config.margin.left;
+        svg
+            .attr("height", svgHeight)
+            .attr("width", svgWidth);
+
+        var g = svg.append("g")
+            .attr("transform", "translate(" + leftOffset + "," + topOffset + ")");
 
         this.drawLinks(nodes, g);
         this.drawNodes(nodes, g);
-
     }
 
     /**
@@ -84,7 +104,7 @@ export default class TreeWidget {
             })
             .style("text-anchor", "middle")
             .text(function (d) {
-                return d.data.name;
+                return d.data.value;
             });
     }
 
