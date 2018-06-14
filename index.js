@@ -1,6 +1,6 @@
 import './CSS/style.css';
 import Widgets from "./Widgets/Widgets";
-import BSTTestcase from "./DS/BSTTestCase";
+import BSTTestcase from "./DS/TREE/BST/TestCase";
 
 BSTTestcase(Widgets);
 

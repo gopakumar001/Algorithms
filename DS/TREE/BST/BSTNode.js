@@ -3,7 +3,7 @@
  * @file Node for BST.
  */
 
-import Node from "./Node";
+import Node from "../../Node";
 
 const LEFT = 0;
 const RIGHT = 1;
