@@ -1,22 +1,21 @@
 /**
  * @author Gopakumar V
- * @file Test case for binary search tree.
- * 
- *      1. Insert node into BST
- *      2. Delete node from BST
+ * @file Test case for AVL Tree
+ *  
+ *  1. Insert node into a tree.
+ *     
+ *  2. Remove node from the tree.
  */
 
-import BST from "./BST";
+import AVLTree from "./AVLTree";
 import Widgets from "../../../Widgets/Widgets";
 
-const BSTInstance = new BST();
-const treeData = [10, 5, 4, 6, 15, 12, 16];
-const treeData1 = [100, 50, 20, 10, 30, 60, 55, 65, 150, 120, 110, 130, 160, 155, 165];
 
 function addTemplate() {
     var form = `<div class="formInput">
+                    <h4>AVL TREE TEST CASE</h4>
                     <div style="float: left; clear: both;">
-                        <input class="add" value="100,50,20,10,30,60,55,65,150,120,110,130,160,155,165"/>
+                        <input class="add" value="1,2,3,4,5,6"/>
                         <button data-type='add' >Add</button>
                         <br>
                         <input class="remove"/>
@@ -50,14 +49,13 @@ function createTree() {
     });
 }
 
-export default function BSTTestCase(Widgets) {
-
+const tree = new AVLTree()
+export default function AVLTestCase() {
     addTemplate();
     const treeWidget = createTree();
-
-
-    console.log("------------- BST AND TREE WIDGET INSTANCE -----------------");
-    console.log(BSTInstance);
+    
+    console.log("------------- AVL TREE AND TREE WIDGET INSTANCE -----------------");
+    console.log(tree);
     console.log(treeWidget);
     console.log("------------------------------------------------------------");
 
@@ -66,7 +64,7 @@ export default function BSTTestCase(Widgets) {
         var type = $(this).data('type');
 
         if (type == "INORDER" || type == "POSTORDER" || type == "PREORDER") {
-            var list = BSTInstance.traverse(type);
+            var list = tree.traverse(type);
             $(".result").empty().append("<div class='value' >" + list.map(function(val) {
                 return "<span>"+val+"</span>";
             }).join("") + "</div>");
@@ -86,16 +84,15 @@ export default function BSTTestCase(Widgets) {
 
                 _value.forEach(element => {
                     if (type == 'add')
-                        BSTInstance.insert(element);
+                        tree.insert(element);
                     else
-                        BSTInstance.delete(element);
+                        tree.delete(element);
                 });
 
                 inputField.val("");
-                var treeData = BSTInstance.toJson();
+                var treeData = tree.toJson();
                 treeWidget.updateUI(treeData);
             }
         }
-
     });
 }

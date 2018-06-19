@@ -19,8 +19,23 @@ html, body {
   position: absolute;
   padding: 10px;
   right: 0px;
+  top : 0px;
 }
 
 .formInput input {
   margin-top: 20px;
+}
+
+.result {
+    width: 100%;
+    padding: 10px;
+    min-height: 40px;
+    left: 0px;
+    position: absolute;
+    background: #ccc;
+    bottom: 0px;
+}
+
+.result .value span {
+  padding: 10px;
 }

@@ -22,7 +22,7 @@ export default class TreeWidget {
             this.renderUI();
     }
 
-    updateUI(data, treeHeight) {
+    updateUI(data) {
         if (data) {
             this._config.data = data;
             this.renderUI();

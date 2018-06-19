@@ -1,8 +1,9 @@
 import './CSS/style.css';
-import Widgets from "./Widgets/Widgets";
 import BSTTestcase from "./DS/TREE/BST/TestCase";
+import AVLTestcase from "./DS/TREE/AVL/TestCase";
 
-BSTTestcase(Widgets);
+//BSTTestcase();
+AVLTestcase();
 
 // import sortingAlgo from "./SORTING/SortingAlgo";
 /* import {

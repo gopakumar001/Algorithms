@@ -4,30 +4,31 @@
  */
 
 import BSTNode from "./BSTNode";
+import Tree from "../Tree";
 
-export default class BST {
-
-    constructor() {
-        this._root = null;
-    }
+export default class BST extends Tree {
 
     getHeight() {
         return this._getHeight(this._root);
     }
 
     _getHeight(node) {
-        if(node == null) {
+        if (node == null) {
             return 0;
         }
         var leftNode = node.getLeftNode(),
             rightNode = node.getRightNode();
 
-        return Math.max(this._getHeight(leftNode), this._getHeight(rightNode)) +1;
+        return Math.max(this._getHeight(leftNode), this._getHeight(rightNode)) + 1;
+    }
+
+    createNode(value) {
+        return new BSTNode(value);
     }
 
     insert(value) {
         if (this._root == null) {
-            this._root = new BSTNode(value);
+            this._root = this.createNode(value);
         } else {
             this._insert(this._root, value);
         }
@@ -42,23 +43,23 @@ export default class BST {
      */
     delete(value) {
         if (this._root !== null) {
-            var removedNode = this._removeNode(value, this._root);   
+            var removedNode = this._removeNode(value, this._root);
         }
     }
 
     _removeNode(value, node) {
-        if(node == null) {
-            return node;    
+        if (node == null) {
+            return node;
         }
-        
-        if(value < node.getValue()){
+
+        if (value < node.getValue()) {
             node.setLeftNode(this._removeNode(value, node.getLeftNode()));
-        }else if(value > node.getValue()) {
+        } else if (value > node.getValue()) {
             node.setRightNode(this._removeNode(value, node.getRightNode()));
-        }else {
+        } else {
 
             //CASE 1 : WHEN NODE TO REMOVE THE LEAF NODE.
-            if(node.getLeftNode() == null && node.getRightNode() == null) {
+            if (node.getLeftNode() == null && node.getRightNode() == null) {
                 console.log("Removing leaf");
                 return null;
             }
@@ -67,7 +68,7 @@ export default class BST {
             /**
              * TYPE 1 : Node to remove has one right child.
              */
-            if(node.getLeftNode() == null) {
+            if (node.getLeftNode() == null) {
                 console.log("removing node with only right child");
                 var orphan = node.getRightNode();
                 node = null;
@@ -76,13 +77,13 @@ export default class BST {
             /**
              * TYPE 2 : Node to remove has one left child.
              */
-            else if(node.getRightNode() == null) {
+            else if (node.getRightNode() == null) {
                 console.log("removing node with only left child");
                 var orphan = node.getLeftNode();
                 node = null;
                 return orphan;
             }
-            
+
             //CASE 3 :: WHEN NODE TO REMOVE HAS 2 CHILDRENS
             /**
              * APPROACH 1 : USING PREDESSOR.
@@ -94,7 +95,7 @@ export default class BST {
                 node.setValue(highestNode.getValue());
                 node.setLeftNode(this._removeNode(highestNode.getValue(), node.getLeftNode()));
             }*/
-            
+
             /**
              * APPROACH 2 : USING SUCCESSOR.
              */
@@ -109,7 +110,7 @@ export default class BST {
     }
 
     _getRightMostNode(node) {
-        if(node.getRightNode() == null){
+        if (node.getRightNode() == null) {
             return node;
         }
         return this._getRightMostNode(node.getRightNode());
@@ -129,14 +130,14 @@ export default class BST {
         if (value < node.getValue()) {
             var leftNode = node.getLeftNode();
             if (leftNode === null) {
-                node.setLeftNode(new BSTNode(value));
+                node.setLeftNode(this.createNode(value));
             } else {
                 this._insert(leftNode, value);
             }
         } else {
             var rightNode = node.getRightNode();
             if (rightNode === null) {
-                node.setRightNode(new BSTNode(value));
+                node.setRightNode(this.createNode(value));
             } else {
                 this._insert(rightNode, value);
             }
@@ -144,48 +145,49 @@ export default class BST {
     }
 
     traverse(type) {
-
+        var result = [];
         if (type === "POSTORDER") {
-            this._postOrder(this._root);
+            this._postOrder(this._root, result);
         } else if (type === "PREORDER") {
-            this._preOrder(this._root);
+            this._preOrder(this._root, result);
         } else {
-            this._inorder(this._root);
+            this._inorder(this._root, result);
         }
+        return result;
     }
 
-    _postOrder(node) {
+    _postOrder(node, result) {
 
         var leftNode = node.getLeftNode();
         if (leftNode)
-            this._postOrder(leftNode);
+            this._postOrder(leftNode, result);
 
         var rightNode = node.getRightNode();
         if (rightNode)
-            this._postOrder(rightNode);
+            this._postOrder(rightNode, result);
 
-        console.log(node.getValue());
+        result.push(node.getValue());
     }
 
-    _preOrder(node) {
-        console.log(node.getValue());
+    _preOrder(node, result) {
+        result.push(node.getValue());
         var leftNode = node.getLeftNode();
         if (leftNode)
-            this._preOrder(leftNode);
+            this._preOrder(leftNode, result);
 
         var rightNode = node.getRightNode();
         if (rightNode)
-            this._preOrder(rightNode);
+            this._preOrder(rightNode, result);
     }
 
-    _inorder(node) {
+    _inorder(node, result) {
         var leftNode = node.getLeftNode();
         if (leftNode)
-            this._inorder(leftNode);
-        console.log(node.getValue());
+            this._inorder(leftNode, result);
+        result.push(node.getValue());
         var rightNode = node.getRightNode();
         if (rightNode)
-            this._inorder(rightNode);
+            this._inorder(rightNode, result);
     }
 
     toJson() {
