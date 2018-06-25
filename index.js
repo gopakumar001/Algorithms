@@ -1,9 +1,27 @@
 import './CSS/style.css';
-import BSTTestcase from "./DS/TREE/BST/TestCase";
-import AVLTestcase from "./DS/TREE/AVL/TestCase";
+import allTestCases from "./DS/TREE/TestCases";
+
+
+var selectbox = $("<select></select>").addClass("testcaseList").appendTo($('body'));
+$("<option value='' disabled selected>Select your option</option>").appendTo(selectbox);
+
+console.log(allTestCases);
+for (var name in allTestCases) {
+    $("<option></option>")
+        .text(name)
+        .prop('value', name)
+        .appendTo(selectbox);
+}
+
+selectbox.on("change", function (el) {
+    var type = $(this).val(),
+        cntr = $(".mainContainer");
+    cntr.empty();
+    new allTestCases[type](cntr);
+});
 
 //BSTTestcase();
-AVLTestcase();
+//AVLTestcase();
 
 // import sortingAlgo from "./SORTING/SortingAlgo";
 /* import {

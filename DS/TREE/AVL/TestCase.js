@@ -11,7 +11,7 @@ import AVLTree from "./AVLTree";
 import Widgets from "../../../Widgets/Widgets";
 
 
-function addTemplate() {
+function addTemplate(cntr) {
     var form = `<div class="formInput">
                     <h4>AVL TREE TEST CASE</h4>
                     <div style="float: left; clear: both;">
@@ -28,7 +28,7 @@ function addTemplate() {
                     </div>
                 </div>`;
 
-    $('body')
+    cntr
         .append(form)
         .append("<div class='widgetContainer'></div>")
         .append("<div class='result'></div>");
@@ -49,9 +49,9 @@ function createTree() {
     });
 }
 
-const tree = new AVLTree()
-export default function AVLTestCase() {
-    addTemplate();
+const tree = new AVLTree();
+export default function AVLTestCase(cntr) {
+    addTemplate(cntr);
     const treeWidget = createTree();
     
     console.log("------------- AVL TREE AND TREE WIDGET INSTANCE -----------------");

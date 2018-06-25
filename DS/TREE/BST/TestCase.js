@@ -13,7 +13,7 @@ const BSTInstance = new BST();
 const treeData = [10, 5, 4, 6, 15, 12, 16];
 const treeData1 = [100, 50, 20, 10, 30, 60, 55, 65, 150, 120, 110, 130, 160, 155, 165];
 
-function addTemplate() {
+function addTemplate(cntr) {
     var form = `<div class="formInput">
                     <div style="float: left; clear: both;">
                         <input class="add" value="100,50,20,10,30,60,55,65,150,120,110,130,160,155,165"/>
@@ -29,7 +29,7 @@ function addTemplate() {
                     </div>
                 </div>`;
 
-    $('body')
+    cntr
         .append(form)
         .append("<div class='widgetContainer'></div>")
         .append("<div class='result'></div>");
@@ -50,9 +50,9 @@ function createTree() {
     });
 }
 
-export default function BSTTestCase(Widgets) {
+export default function BSTTestCase(cntr) {
 
-    addTemplate();
+    addTemplate(cntr);
     const treeWidget = createTree();
 
 
@@ -67,8 +67,8 @@ export default function BSTTestCase(Widgets) {
 
         if (type == "INORDER" || type == "POSTORDER" || type == "PREORDER") {
             var list = BSTInstance.traverse(type);
-            $(".result").empty().append("<div class='value' >" + list.map(function(val) {
-                return "<span>"+val+"</span>";
+            $(".result").empty().append("<div class='value' >" + list.map(function (val) {
+                return "<span>" + val + "</span>";
             }).join("") + "</div>");
         } else {
 

@@ -39,3 +39,16 @@ html, body {
 .result .value span {
   padding: 10px;
 }
+
+.mainContainer {
+  width: 100%;
+  height: 100%;
+}
+
+select.testcaseList {
+  position: absolute;
+  top: 10px;
+    left: 10px;
+    height: 30px;
+    border-radius: 5px;
+}
